@@ -2,36 +2,36 @@ create database QLDonDatHang;
 use QLDonDatHang;
 
 create table Category (
-CategoryID varchar(5) primary key,
-CategoryName varchar(50) not null
+CategoryID char(3) primary key,
+CategoryName varchar(30) not null
 );
 
 create table Product (
-ProductID varchar(5) primary key,
-ProductName varchar(50) not null,
+ProductID char(3) primary key,
+ProductName varchar(30) not null,
 UnitPrice float check (UnitPrice > 0),
-CategoryID varchar(5),
+CategoryID char(3),
 foreign key (CategoryID) references Category(CategoryID)
 );
 
 create table Customer (
-CustomerID varchar(5) primary key,
-CustomerName varchar(50) not null,
-CustomerAddress varchar(100)
+CustomerID char(3) primary key,
+CustomerName varchar(30) not null,
+CustomerAddress varchar(30)
 );
 
 create table Orders (
-OrdersID varchar(5) primary key,
+OrdersID char(3) primary key,
 OrdersDate date not null,
 RequiredDate date,
-CustomerID varchar(5),
+CustomerID char(3),
 foreign key (CustomerID) references Customer(CustomerID),
 check (RequiredDate >= OrdersDate)
 );
 
 create table OrdersDetail (
-OrdersID varchar(5),
-ProductID varchar(5),
+OrdersID char(3),
+ProductID char(3),
 Quantity int check (Quantity > 0),
 primary key (OrdersID, ProductID),
 foreign key (OrdersID) references Orders(OrdersID),
@@ -39,15 +39,15 @@ foreign key (ProductID) references Product(ProductID)
 );
 
 create table Delivery (
-DeliveryID varchar(5) primary key,
+DeliveryID char(3) primary key,
 DeliveryDate date,
-OrdersID varchar(5),
+OrdersID char(3),
 foreign key (OrdersID) references Orders(OrdersID)
 );
 
 create table DeliveryDetail (
-DeliveryID varchar(5),
-ProductID varchar(5),
+DeliveryID char(3),
+ProductID char(3),
 Quantity int check (Quantity > 0),
 primary key (DeliveryID, ProductID),
 foreign key (DeliveryID) references Delivery(DeliveryID),

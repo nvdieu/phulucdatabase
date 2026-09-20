@@ -2,28 +2,28 @@ create database QLSinhVien;
 use QLSinhVien;
 
 create table Subject (
-SubjectID varchar(5) primary key,
-SubjectName varchar(50) not null,
+SubjectID char(3) primary key,
+SubjectName varchar(30) not null,
 Unit int check (Unit > 0)
 );
 
 create table Class (
-ClassID varchar(5) primary key,
-ClassName varchar(20) not null,
+ClassID char(3) primary key,
+ClassName varchar(30) not null,
 ClassYear int
 );
 
 create table Student (
-StudentID varchar(5) primary key,
-StudentName varchar(50) not null,
-StudentAddress varchar(100),
-ClassID varchar(5),
+StudentID char(3) primary key,
+StudentName varchar(30) not null,
+StudentAddress varchar(30),
+ClassID char(3),
 foreign key (ClassID) references Class(ClassID)
 );
 
 create table StudentGrade (
-StudentID varchar(5),
-SubjectID varchar(5),
+StudentID char(3),
+SubjectID char(3),
 Grade float check (Grade between 0 and 10),
 primary key (StudentID, SubjectID),
 foreign key (StudentID) references Student(StudentID),

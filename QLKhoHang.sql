@@ -2,28 +2,28 @@ create database QLKhoHang;
 use QLKhoHang;
 
 create table Category (
-CategoryID varchar(5) primary key,
-CategoryName varchar(50) not null
+CategoryID char(3) primary key,
+CategoryName varchar(30) not null
 );
 
 create table Product (
-ProductID varchar(5) primary key,
-ProductName varchar(50) not null,
+ProductID char(3) primary key,
+ProductName varchar(30) not null,
 UnitPrice float check (UnitPrice > 0),
-CategoryID varchar(5),
+CategoryID char(3),
 foreign key (CategoryID) references Category(CategoryID)
 );
 
 create table Warehouse (
-WarehouseID varchar(5) primary key,
-WarehouseAddress varchar(100),
-CategoryID varchar(5),
+WarehouseID char(3) primary key,
+WarehouseAddress varchar(30),
+CategoryID char(3),
 foreign key (CategoryID) references Category(CategoryID)
 );
 
 create table Instock (
-WarehouseID varchar(5),
-ProductID varchar(5),
+WarehouseID char(3),
+ProductID char(3),
 Quantity int check (Quantity >= 0),
 primary key (WarehouseID, ProductID),
 foreign key (WarehouseID) references Warehouse(WarehouseID),
