@@ -1,0 +1,174 @@
+### KET QUA KIEM THU CHUONG 4 - MySQL/MariaDB (MariaDB 10.11)
+### (cac dong ERROR duoi nhan [PHAI LOI] la dung mong doi: trigger tu choi thao tac vi pham)
+| test                                             |
+| [OK] A1 them dot giao hop le (giao sau ngay dat) |
+| test                                         |
+| [OK] A2 giao dung ngay dat (bien: bang nhau) |
+| test                                       |
+| [PHAI LOI] A3 them dot giao truoc ngay dat |
+insert into Delivery values ('G04','2026-08-14','D02')
+
+ERROR 1644 (45000) at line 53: Ngày giao phải bằng hoặc sau ngày đặt hàng
+| test                                                      |
+| [PHAI LOI] A4 sua ngay giao G01 ve truoc ngay dat cua D01 |
+update Delivery set DeliveryDate = '2026-07-01' where DeliveryID = 'G01'
+
+ERROR 1644 (45000) at line 55: Ngày giao phải bằng hoặc sau ngày đặt hàng
+| test                                                                    |
+| [PHAI LOI] A5 chuyen G01 sang don D02 (dat 2026-08-15, giao 2026-08-08) |
+update Delivery set OrdersID = 'D02' where DeliveryID = 'G01'
+
+ERROR 1644 (45000) at line 57: Ngày giao phải bằng hoặc sau ngày đặt hàng
+| test                                                                       |
+| [PHAI LOI] A6 doi ngay dat D01 thanh 2026-08-20 (sau ngay giao 2026-08-08) |
+update Orders set OrdersDate = '2026-08-20' where OrdersID = 'D01'
+
+ERROR 1644 (45000) at line 59: Ngày đặt hàng mới trễ hơn đợt giao đã có
+| test                                                            |
+| [OK] A7 doi ngay dat D01 thanh 2026-08-05 (van truoc ngay giao) |
+| test                                                |
+| [OK] A8 don chua co dot giao thi doi ngay dat tu do |
+| test                             |
+| A9 ket qua sau cac thao tac tren |
+| DeliveryID | DeliveryDate | OrdersID |
+| G01        | 2026-08-08   | D01      |
+| G02        | 2026-08-16   | D02      |
+| OrdersID | OrdersDate |
+| D01      | 2026-08-05 |
+| D02      | 2026-08-15 |
+| D03      | 2026-09-03 |
+| test                                                                                 |
+| A10 ROLLBACK: mot giao dich co thao tac hop le roi thao tac vi pham, sau do rollback |
+| so_dot_giao_truoc |
+|                 2 |
+insert into Delivery values ('G06','2026-08-01','D02')
+
+ERROR 1644 (45000) at line 73: Ngày giao phải bằng hoặc sau ngày đặt hàng
+| so_dot_giao_trong_giao_dich |
+|                           3 |
+| so_dot_giao_sau_rollback |
+|                        2 |
+| test                                                         |
+| [OK] B1 them ton kho hop le (W02, suc chua 50: them P01 x10) |
+| test                                                            |
+| [OK] B1b UPDATE tang len dung bang suc chua (W02 P01: 10 -> 50) |
+| test                                                                |
+| [PHAI LOI] B2 them ton kho vuot suc chua (W02 dang 50, them P02 x1) |
+insert into Instock values ('W02','P02',1)
+
+ERROR 1644 (45000) at line 135: Vuot suc chua toi da cua kho
+| test                                                               |
+| [PHAI LOI] B3 UPDATE tang so luong lam W01 vuot 100 (P01 60 -> 71) |
+update Instock set Quantity = 71 where WarehouseID = 'W01' and ProductID = 'P01'
+
+ERROR 1644 (45000) at line 137: Vuot suc chua toi da cua kho
+| test                                                                             |
+| [OK] B4 UPDATE giu nguyen tong (W01: P01 60 -> 70, cong P02 30 = 100 = suc chua) |
+| test                                                                                          |
+| [PHAI LOI] B5 UPDATE chuyen dong sang kho khac lam vuot (P02 cua W01 chuyen sang W02 dang 50) |
+update Instock set WarehouseID = 'W02' where WarehouseID = 'W01' and ProductID = 'P02'
+
+ERROR 1644 (45000) at line 141: Vuot suc chua toi da cua kho
+| test                                                           |
+| [PHAI LOI] B6 ha suc chua W01 xuong 90 trong khi dang chua 100 |
+update Warehouse set MaxCapacity = 90 where WarehouseID = 'W01'
+
+ERROR 1644 (45000) at line 143: Suc chua moi nho hon tong ton hien co
+| test                              |
+| [OK] B7 tang suc chua W01 len 120 |
+| test       |
+| B8 ket qua |
+| WarehouseID | ProductID | Quantity |
+| W01         | P01       |       70 |
+| W01         | P02       |       30 |
+| W02         | P01       |       50 |
+| WarehouseID | MaxCapacity |
+| W01         |         120 |
+| W02         |          50 |
+
+### XUNG DOT DONG THOI (MySQL)
+--- K1. Trigger KHONG khoa dong kho (REPEATABLE READ mac dinh): ca hai qua duoc -> VI PHAM
+  => tong_ton_kho W03 = 60
+--- K2. Trigger co khoa dong kho (for update), B chua doc gi truoc: B cho A commit roi bi tu choi
+  B: --------------
+  B: insert into Instock values ('W03','P02',30)
+  B: --------------
+  B: ERROR 1644 (45000) at line 1: Vuot suc chua
+  => tong_ton_kho W03 = 30
+--- K3. Nhu K2 nhung B da doc bang Instock truoc do (snapshot cu) o REPEATABLE READ: van co the VI PHAM
+  => tong_ton_kho W03 = 60
+--- K4. Nhu K3 nhung dung READ COMMITTED: B thay du lieu da commit cua A -> bi tu choi
+  B: --------------
+  B: insert into Instock values ('W03','P02',30)
+  B: --------------
+  B: ERROR 1644 (45000) at line 1: Vuot suc chua
+  => tong_ton_kho W03 = 30
+
+
+### KET QUA KIEM THU CHUONG 4 - PostgreSQL 16.13
+psql:chuong4_postgres.sql:7: NOTICE:  drop cascades to 5 other objects
+DETAIL:  drop cascades to table t_c4a.customer
+drop cascades to table t_c4a.orders
+drop cascades to table t_c4a.delivery
+drop cascades to function t_c4a.kt_ngaygiao()
+drop cascades to function t_c4a.kt_ngaydat()
+[OK] A1 them dot giao hop le (giao sau ngay dat)
+[OK] A2 giao dung ngay dat (bien: bang nhau)
+[PHAI LOI] A3 them dot giao truoc ngay dat
+psql:chuong4_postgres.sql:50: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
+[PHAI LOI] A4 sua ngay giao G01 ve truoc ngay dat cua D01
+psql:chuong4_postgres.sql:52: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
+[PHAI LOI] A5 chuyen G01 sang don D02 (dat 2026-08-15, giao 2026-08-08)
+psql:chuong4_postgres.sql:54: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
+[PHAI LOI] A6 doi ngay dat D01 thanh 2026-08-20 (sau ngay giao 2026-08-08)
+psql:chuong4_postgres.sql:56: ERROR:  Ngày đặt hàng mới trễ hơn đợt giao đã có
+[OK] A7 doi ngay dat D01 thanh 2026-08-05 (van truoc ngay giao)
+[OK] A8 don chua co dot giao thi doi ngay dat tu do
+A9 ket qua sau cac thao tac tren
+G01|2026-08-08|D01
+G02|2026-08-16|D02
+D01|2026-08-05
+D02|2026-08-15
+D03|2026-09-03
+A10 ROLLBACK: trong PostgreSQL, loi lam giao dich chuyen sang trang thai loi, buoc phai rollback toan bo
+2
+psql:chuong4_postgres.sql:70: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
+psql:chuong4_postgres.sql:71: ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2
+psql:chuong4_postgres.sql:76: NOTICE:  drop cascades to 6 other objects
+DETAIL:  drop cascades to table t_c4b.category
+drop cascades to table t_c4b.product
+drop cascades to table t_c4b.warehouse
+drop cascades to table t_c4b.instock
+drop cascades to function t_c4b.kt_succhua()
+drop cascades to function t_c4b.kt_succhua_kho()
+[OK] B1 them ton kho hop le (W02, suc chua 50: them P01 x10)
+[OK] B1b UPDATE tang len dung bang suc chua (W02 P01: 10 -> 50)
+[PHAI LOI] B2 them ton kho vuot suc chua (W02 dang 50, them P02 x1)
+psql:chuong4_postgres.sql:130: ERROR:  Vuot suc chua toi da cua kho
+[PHAI LOI] B3 UPDATE tang so luong lam W01 vuot 100 (P01 60 -> 71)
+psql:chuong4_postgres.sql:132: ERROR:  Vuot suc chua toi da cua kho
+[OK] B4 UPDATE giu nguyen tong (W01: P01 60 -> 70, cong P02 30 = 100 = suc chua)
+[PHAI LOI] B5 UPDATE chuyen dong sang kho khac lam vuot (P02 cua W01 chuyen sang W02 dang 50)
+psql:chuong4_postgres.sql:136: ERROR:  Vuot suc chua toi da cua kho
+[PHAI LOI] B6 ha suc chua W01 xuong 90 trong khi dang chua 100
+psql:chuong4_postgres.sql:138: ERROR:  Suc chua moi nho hon tong ton hien co
+[OK] B7 tang suc chua W01 len 120
+B8 ket qua
+W01|P01|70
+W01|P02|30
+W02|P01|50
+W01|120
+W02|50
+
+### XUNG DOT DONG THOI (PostgreSQL)
+--- K1. Trigger KHONG khoa dong kho (READ COMMITTED mac dinh): ca hai qua duoc -> VI PHAM
+  => tong_ton_kho W03 = 60
+--- K2. Trigger co khoa dong kho (for update), READ COMMITTED: B cho A commit roi bi tu choi
+  B: ERROR:  Vuot suc chua
+  => tong_ton_kho W03 = 30
+--- K3. Khoa dong kho + REPEATABLE READ, B da doc truoc: van co the VI PHAM (snapshot cu)
+  => tong_ton_kho W03 = 60
+--- K4. SERIALIZABLE, B da doc truoc: PostgreSQL huy giao dich (serialization failure), khong vi pham
+  A: ERROR:  could not serialize access due to read/write dependencies among transactions
+  => tong_ton_kho W03 = 30
