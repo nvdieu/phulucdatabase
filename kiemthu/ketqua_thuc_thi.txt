@@ -1,0 +1,106 @@
+### KET QUA TREN DU LIEU MAU (bash kiemthu/chay_kiemthu.sh)
+| q      | GPA  |
+| VD3.19 | 7.75 |
+| q                | StudentID | GPA  |
+| VD3.19-trung-ten | T01       | 7.75 |
+| q  | ClassID | GPA   |
+| C7 | C02     | 8.375 |
+| q  | StudentID |
+| C9 | T01       |
+| C9 | T03       |
+| q   | StudentID |
+| C10 | T01       |
+| C10 | T02       |
+| C10 | T03       |
+| q         | WarehouseID |
+| VD3.55-cu | W01         |
+| VD3.55-cu | W02         |
+| VD3.55-cu | W03         |
+| q         | WarehouseID |
+| VD3.55-c1 | W01         |
+| VD3.55-c1 | W02         |
+| q         | WarehouseID |
+| VD3.55-c2 | W01         |
+| VD3.55-c2 | W02         |
+| q      | ProductID | ProductName | SoKho |
+| VD3.61 | P01       | Gao ST25    |     2 |
+| q   | WarehouseID |
+| C12 | W01         |
+| C12 | W02         |
+| C12 | W03         |
+| q   | WarehouseID | Tong |
+| C16 | W01         |  800 |
+| q   | WarehouseID |
+| C19 | W01         |
+| q   | WarehouseID |
+| C20 | W01         |
+| C20 | W02         |
+| q   | CustomerID | TongTriGia |
+| C22 | M01        |     950000 |
+| q   | OrdersID |
+| C24 | D01      |
+| q   | OrdersID |
+| C25 | D01      |
+
+### KET QUA TREN DU LIEU BIEN (bash kiemthu/chay_kiemthu.sh bien)
+| q      | GPA               |
+| VD3.19 | 6.666666666666667 |
+| q                | StudentID | GPA  |
+| VD3.19-trung-ten | T01       | 7.75 |
+| VD3.19-trung-ten | T08       |  4.5 |
+| q  | ClassID | GPA   |
+| C7 | C02     | 8.375 |
+| C7 | C05     | 8.375 |
+| q  | StudentID |
+| C9 | T01       |
+| C9 | T03       |
+| q   | StudentID |
+| C10 | T01       |
+| C10 | T02       |
+| C10 | T03       |
+| C10 | T06       |
+| C10 | T08       |
+| q         | WarehouseID |
+| VD3.55-cu | W01         |
+| VD3.55-cu | W02         |
+| VD3.55-cu | W03         |
+| VD3.55-cu | W05         |
+| q         | WarehouseID |
+| VD3.55-c1 | W01         |
+| VD3.55-c1 | W02         |
+| VD3.55-c1 | W06         |
+| q         | WarehouseID |
+| VD3.55-c2 | W01         |
+| VD3.55-c2 | W02         |
+| VD3.55-c2 | W06         |
+| q      | ProductID | ProductName | SoKho |
+| VD3.61 | P01       | Gao ST25    |     5 |
+| VD3.61 | P02       | Ca phe      |     2 |
+| VD3.61 | P03       | Tai nghe    |     3 |
+| q   | WarehouseID |
+| C12 | W01         |
+| C12 | W02         |
+| C12 | W03         |
+| q   | WarehouseID | Tong |
+| C16 | W01         |  800 |
+| C16 | W07         |  800 |
+| q   | WarehouseID |
+| C18 | W05         |
+| C18 | W06         |
+| q   | WarehouseID |
+| C19 | W01         |
+| C19 | W06         |
+| q   | WarehouseID |
+| C20 | W01         |
+| C20 | W02         |
+| C20 | W06         |
+| q   | CustomerID | TongTriGia |
+| C22 | M01        |     950000 |
+| C22 | M03        |     950000 |
+| q   | OrdersID |
+| C24 | D01      |
+| q   | OrdersID |
+| C25 | D01      |
+| C25 | D04      |
+| q   | OrdersID | DeliveryID |
+| C26 | D04      | G02        |

@@ -10,7 +10,7 @@ Unit int check (Unit > 0)
 create table Class (
 ClassID char(3) primary key,
 ClassName varchar(30) not null,
-ClassYear int
+ClassYear varchar(30)
 );
 
 create table Student (
@@ -36,12 +36,12 @@ insert into Subject values
 ('S03','Lap trinh Java',4), ('S04','Mang may tinh',2);
 
 insert into Class values
-('C01','DB01',2025), ('C02','DB02',2025), ('C03','AI01',2026);
+('C01','DB01','2025'), ('C02','DB02','2025'), ('C03','AI01','2026');
 
 insert into Student values
-('T01','Nguyen Van A','Q1, Tp.HCM','C01'),
-('T02','Tran Thi B','Q2, Tp.HCM','C01'),
-('T03','Le Van C','Q3, Tp.HCM','C02'),
+('T01','Nguyen Van A','Q1, Ho Chi Minh','C01'),
+('T02','Tran Thi B','Q2, Ho Chi Minh','C01'),
+('T03','Le Van C','Q3, Ho Chi Minh','C02'),
 ('T04','Pham Thi D',null,'C03');
 -- T04 chua co dia chi (NULL hop le vi khong bat buoc)
 

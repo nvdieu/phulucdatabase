@@ -41,9 +41,9 @@ insert into Product values
 -- P05 chua duoc luu o kho nao (dung cho bai tap "san pham chua o kho")
 
 insert into Warehouse values
-('W01','123 Le Loi, Q1, Tp.HCM','C01'),
-('W02','456 Nguyen Trai, Q5, Tp.HCM','C02'),
-('W03','789 CMT8, Q10, Tp.HCM','C03');
+('W01','123 Le Loi, Q1, Ho Chi Minh','C01'),
+('W02','456 Nguyen Trai, Ho Chi Minh','C02'),
+('W03','789 CMT8, Q10, Ho Chi Minh','C03');
 
 insert into Instock values
 ('W01','P01',500), ('W01','P02',300),

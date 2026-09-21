@@ -18,3 +18,9 @@ Script viet theo cu phap MySQL 8.0. Voi PostgreSQL: tao CSDL rieng roi ket noi
     sha256sum -c SHA256SUMS          # Linux
     shasum -a 256 -c SHA256SUMS      # macOS
     CertUtil -hashfile QLSinhVien.sql SHA256   # Windows
+
+## Kiem thu Chuong 3
+
+Thu muc `kiemthu/` chua cac truy van cua Chuong 3 (Vi du 3.19, 3.55, 3.61 va cau 7, 9, 10, 16, 19, 20, 22, 24, 25, 26),
+du lieu bien (diem NULL, dong hang, kho thieu/thua mat hang sai loai, giao hang nhieu dot, ban ghi giao khong thuoc don) va
+ket qua thuc thi (`ketqua_thuc_thi.txt`). Chay: `bash kiemthu/chay_kiemthu.sh` hoac `bash kiemthu/chay_kiemthu.sh bien`.

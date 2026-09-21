@@ -62,8 +62,8 @@ insert into Product values
 ('P03','Tai nghe',150000,'C02');
 
 insert into Customer values
-('M01','Cong ty TNHH ABC','12 Vo Van Tan, Q3, Tp.HCM'),
-('M02','Nguyen Van A','45 Ly Tu Trong, Q1, Tp.HCM');
+('M01','Cong ty TNHH ABC','12 Vo Van Tan, Q3, Ho Chi Minh'),
+('M02','Nguyen Van A','45 Ly Tu Trong, Ho Chi Minh');
 -- M02 se chua co don hang nao (dung cho bai tap "khach hang chua dat hang")
 
 insert into Orders values
