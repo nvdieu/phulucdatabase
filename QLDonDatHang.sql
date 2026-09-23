@@ -67,17 +67,17 @@ insert into Customer values
 -- M02 se chua co don hang nao (dung cho bai tap "khach hang chua dat hang")
 
 insert into Orders values
-('D01','2026-08-01','2026-08-10','M01'),
-('D02','2026-08-15','2026-08-20','M01');
+('R01','2026-08-01','2026-08-10','M01'),
+('R02','2026-08-15','2026-08-20','M01');
 
 insert into OrdersDetail values
-('D01','P01',10), ('D01','P02',5),
-('D02','P03',2);
+('R01','P01',10), ('R01','P02',5),
+('R02','P03',2);
 
 insert into Delivery values
-('G01','2026-08-08','D01');
--- D02 chua co dot giao nao (dung cho bai tap "don hang chua duoc giao")
+('D01','2026-08-08','R01');
+-- R02 chua co dot giao nao (dung cho bai tap "don hang chua duoc giao")
 
 insert into DeliveryDetail values
-('G01','P01',10), ('G01','P02',3);
+('D01','P01',10), ('D01','P02',3);
 -- Giao thieu P02 (dat 5 nhung chi giao 3) -- dung cho bai tap "giao chua du"

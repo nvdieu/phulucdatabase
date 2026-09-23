@@ -42,26 +42,26 @@ end //
 delimiter ;
 
 insert into Customer values ('M01','Cong ty ABC',null);
-insert into Orders values ('D01','2026-08-01','2026-08-10','M01'), ('D02','2026-08-15','2026-08-20','M01'), ('D03','2026-09-01','2026-09-05','M01');
-insert into Delivery values ('G01','2026-08-08','D01');
+insert into Orders values ('R01','2026-08-01','2026-08-10','M01'), ('R02','2026-08-15','2026-08-20','M01'), ('R03','2026-09-01','2026-09-05','M01');
+insert into Delivery values ('D01','2026-08-08','R01');
 
 select '[OK] A1 them dot giao hop le (giao sau ngay dat)' as test;
-insert into Delivery values ('G02','2026-08-16','D02');
+insert into Delivery values ('D02','2026-08-16','R02');
 select '[OK] A2 giao dung ngay dat (bien: bang nhau)' as test;
-insert into Delivery values ('G03','2026-09-01','D03');
+insert into Delivery values ('D03','2026-09-01','R03');
 select '[PHAI LOI] A3 them dot giao truoc ngay dat' as test;
-insert into Delivery values ('G04','2026-08-14','D02');
-select '[PHAI LOI] A4 sua ngay giao G01 ve truoc ngay dat cua D01' as test;
-update Delivery set DeliveryDate = '2026-07-01' where DeliveryID = 'G01';
-select '[PHAI LOI] A5 chuyen G01 sang don D02 (dat 2026-08-15, giao 2026-08-08)' as test;
-update Delivery set OrdersID = 'D02' where DeliveryID = 'G01';
-select '[PHAI LOI] A6 doi ngay dat D01 thanh 2026-08-20 (sau ngay giao 2026-08-08)' as test;
-update Orders set OrdersDate = '2026-08-20' where OrdersID = 'D01';
-select '[OK] A7 doi ngay dat D01 thanh 2026-08-05 (van truoc ngay giao)' as test;
-update Orders set OrdersDate = '2026-08-05' where OrdersID = 'D01';
+insert into Delivery values ('D04','2026-08-14','R02');
+select '[PHAI LOI] A4 sua ngay giao D01 ve truoc ngay dat cua R01' as test;
+update Delivery set DeliveryDate = '2026-07-01' where DeliveryID = 'D01';
+select '[PHAI LOI] A5 chuyen D01 sang don R02 (dat 2026-08-15, giao 2026-08-08)' as test;
+update Delivery set OrdersID = 'R02' where DeliveryID = 'D01';
+select '[PHAI LOI] A6 doi ngay dat R01 thanh 2026-08-20 (sau ngay giao 2026-08-08)' as test;
+update Orders set OrdersDate = '2026-08-20' where OrdersID = 'R01';
+select '[OK] A7 doi ngay dat R01 thanh 2026-08-05 (van truoc ngay giao)' as test;
+update Orders set OrdersDate = '2026-08-05' where OrdersID = 'R01';
 select '[OK] A8 don chua co dot giao thi doi ngay dat tu do' as test;
-delete from Delivery where DeliveryID = 'G03';
-update Orders set OrdersDate = '2026-09-03' where OrdersID = 'D03';
+delete from Delivery where DeliveryID = 'D03';
+update Orders set OrdersDate = '2026-09-03' where OrdersID = 'R03';
 select 'A9 ket qua sau cac thao tac tren' as test;
 select DeliveryID, DeliveryDate, OrdersID from Delivery order by 1;
 select OrdersID, OrdersDate from Orders order by 1;
@@ -69,8 +69,8 @@ select OrdersID, OrdersDate from Orders order by 1;
 select 'A10 ROLLBACK: mot giao dich co thao tac hop le roi thao tac vi pham, sau do rollback' as test;
 select count(*) as so_dot_giao_truoc from Delivery;
 start transaction;
-insert into Delivery values ('G05','2026-08-17','D02');
-insert into Delivery values ('G06','2026-08-01','D02');   -- vi pham -> ERROR, giao dich van mo
+insert into Delivery values ('D05','2026-08-17','R02');
+insert into Delivery values ('D06','2026-08-01','R02');   -- vi pham -> ERROR, giao dich van mo
 select count(*) as so_dot_giao_trong_giao_dich from Delivery;
 rollback;
 select count(*) as so_dot_giao_sau_rollback from Delivery;

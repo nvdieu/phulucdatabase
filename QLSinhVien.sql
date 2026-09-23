@@ -30,23 +30,37 @@ foreign key (StudentID) references Student(StudentID),
 foreign key (SubjectID) references Subject(SubjectID)
 );
 
--- Du lieu mau
+-- Du lieu mau (dong T01-T11 lay tu vi du INSERT o Chuong 3; T12, T13 bo sung)
 insert into Subject values
-('S01','Co so du lieu',3), ('S02','Cau truc du lieu',3),
-('S03','Lap trinh Java',4), ('S04','Mang may tinh',2);
+('S01','Database System',3), ('S02','Database Design',3),
+('S03','Discrete Mathematics',3), ('S04','Artificial Intelligence',4),
+('S05','System Analysis And Design',3);
 
 insert into Class values
-('C01','DB01','2025'), ('C02','DB02','2025'), ('C03','AI01','2026');
+('C01','AI-2023','2023'), ('C02','AI-2024','2024'), ('C03','Data science-2025','2025');
 
 insert into Student values
-('T01','Nguyen Van A','Q1, Ho Chi Minh','C01'),
-('T02','Tran Thi B','Q2, Ho Chi Minh','C01'),
-('T03','Le Van C','Q3, Ho Chi Minh','C02'),
-('T04','Pham Thi D',null,'C03');
--- T04 chua co dia chi (NULL hop le vi khong bat buoc)
+('T01','Nguyễn Văn A','Ho Chi Minh','C01'),
+('T02','Nguyễn Văn B','Ho Chi Minh','C01'),
+('T03','Nguyễn Văn C','Đồng Nai','C01'),
+('T04','Lê Thị A','Ho Chi Minh','C02'),
+('T05','Lê Thị B','Ho Chi Minh','C02'),
+('T06','Lê Thị B','Đồng Nai','C02'),
+('T07','Trần Văn A','Long An','C02'),
+('T08','Trần Văn A','Ho Chi Minh','C03'),
+('T09','Trần Văn B','Long An','C03'),
+('T10','Đặng Văn A','Đồng Nai','C03'),
+('T11','Đặng Văn A','Long An','C03'),
+-- bo sung: T12 chua co dia chi (NULL), da co diem tat ca 5 mon; T13 co diem 4 mon (tru S04)
+('T12','Phạm Thị D',null,'C01'),
+('T13','Vũ Văn E','Long An','C03');
 
 insert into StudentGrade values
-('T01','S01',8.5), ('T01','S02',7.0), ('T01','S03',9.0), ('T01','S04',6.5),
-('T02','S01',5.5), ('T02','S02',6.0),
-('T03','S01',9.5), ('T03','S02',8.0), ('T03','S03',7.5), ('T03','S04',8.5);
--- T04 chua co diem mon nao (dung cho bai tap "sinh vien chua co diem")
+('T01','S01',4), ('T01','S02',8), ('T01','S03',6),
+('T02','S01',3), ('T02','S04',5),
+('T03','S01',6), ('T03','S04',7), ('T03','S05',9),
+('T04','S02',2), ('T04','S04',8), ('T04','S05',3),
+-- bo sung
+('T12','S01',8.5), ('T12','S02',7), ('T12','S03',9), ('T12','S04',6.5), ('T12','S05',8),
+('T13','S01',9), ('T13','S02',8), ('T13','S03',7), ('T13','S05',6);
+-- T05-T11 chua co diem mon nao (dung cho bai tap "sinh vien chua co diem")

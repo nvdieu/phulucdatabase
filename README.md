@@ -21,9 +21,10 @@ Script viet theo cu phap MySQL 8.0. Voi PostgreSQL: tao CSDL rieng roi ket noi
 
 ## Kiem thu Chuong 3
 
-Thu muc `kiemthu/` chua cac truy van cua Chuong 3 (Vi du 3.19, 3.55, 3.61 va cau 7, 9, 10, 16, 19, 20, 22, 24, 25, 26),
+Thu muc `kiemthu/` chua cac truy van cua Chuong 3 (Vi du 3.19, 3.55, 3.61 va cau 1, 4-10, 16, 19, 20, 26, 28, 29, 30),
 du lieu bien (diem NULL, dong hang, kho thieu/thua mat hang sai loai, giao hang nhieu dot, ban ghi giao khong thuoc don) va
-ket qua thuc thi (`ketqua_thuc_thi.txt`). Chay: `bash kiemthu/chay_kiemthu.sh` hoac `bash kiemthu/chay_kiemthu.sh bien`.
+ket qua thuc thi (`ketqua_thuc_thi.txt`). QLSinhVien.sql: T01-T11 lay tu vi du INSERT Chuong 3, bo sung T12, T13.
+Chay: `bash kiemthu/chay_kiemthu.sh` hoac `bash kiemthu/chay_kiemthu.sh bien`.
 
 ## Kiem thu Chuong 4 (trigger)
 

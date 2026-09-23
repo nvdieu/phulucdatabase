@@ -3,16 +3,22 @@
 
 -- ################ QLSinhVien ################
 use T_SV;
--- Vi du 3.19: diem trung binh cua sinh vien ten 'Nguyen Van A' (ten khong trung)
+-- Vi du 3.19: diem trung binh cua sinh vien ten 'Nguyễn Văn A' (ten khong trung; T01)
 select 'VD3.19' as q, avg(Grade) as GPA
 from StudentGrade as A, Student as B
-where A.StudentID = B.StudentID and StudentName = 'Nguyen Van A';
+where A.StudentID = B.StudentID and StudentName = 'Nguyễn Văn A';
 -- Vi du 3.19 (truong hop trung ten): chon them ma sinh vien va nhom theo ma sinh vien
 select 'VD3.19-trung-ten' as q, B.StudentID, avg(Grade) as GPA
 from StudentGrade as A, Student as B
-where A.StudentID = B.StudentID and StudentName = 'Nguyen Van A'
+where A.StudentID = B.StudentID and StudentName = 'Nguyễn Văn A'
 group by B.StudentID
 order by B.StudentID;
+-- Cau 1-6, 8 (dung cho doi chieu voi dap an)
+select 'C1' as q, StudentID from Student where ClassID='C01' order by 2;
+select 'C4' as q, count(*) as SoSVChuaCoDiem from Student s where not exists (select 1 from StudentGrade g where g.StudentID=s.StudentID);
+select 'C5' as q, ClassID, count(*) as SoSV from Student group by ClassID order by 2,3;
+select 'C6' as q, StudentID, avg(Grade) as GPA from StudentGrade group by StudentID order by 2;
+select 'C8' as q, StudentID from StudentGrade group by StudentID having min(Grade) >= 5 order by 2;
 -- Cau 7: lop co GPA cao nhat (bo diem NULL; dong hang thi tra ve tat ca)
 with LopGPA as (
   select S.ClassID, avg(G.Grade) as GPA
@@ -102,11 +108,11 @@ with TongKH as (
   from Orders O join OrdersDetail OD on O.OrdersID = OD.OrdersID
                 join Product P on OD.ProductID = P.ProductID
   group by O.CustomerID)
-select 'C22' as q, CustomerID, TongTriGia from TongKH A
+select 'C26' as q, CustomerID, TongTriGia from TongKH A
 where not exists (select 1 from TongKH B where B.TongTriGia > A.TongTriGia)
 order by CustomerID;
 -- Cau 24: don hang giao chua du (co mat hang da duoc giao nhung so luong giao tong cong < so luong dat)
-select distinct 'C24' as q, OD.OrdersID
+select distinct 'C28' as q, OD.OrdersID
 from OrdersDetail OD
 join (select D.OrdersID, DD.ProductID, sum(DD.Quantity) as DaGiao
       from Delivery D join DeliveryDetail DD on D.DeliveryID = DD.DeliveryID
@@ -115,14 +121,14 @@ join (select D.OrdersID, DD.ProductID, sum(DD.Quantity) as DaGiao
 where G.DaGiao < OD.Quantity
 order by OD.OrdersID;
 -- Cau 25: don hang dat day du moi mat hang thuoc danh muc 'C01'
-select 'C25' as q, O.OrdersID from Orders O
+select 'C29' as q, O.OrdersID from Orders O
 where not exists (select 1 from Product P
                   where P.CategoryID = 'C01'
                     and not exists (select 1 from OrdersDetail OD
                                     where OD.OrdersID = O.OrdersID and OD.ProductID = P.ProductID))
 order by O.OrdersID;
 -- Cau 26: dot giao hang giao day du (so luong >= so luong dat) moi mat hang cua don hang tuong ung
-select 'C26' as q, D.OrdersID, D.DeliveryID from Delivery D
+select 'C30' as q, D.OrdersID, D.DeliveryID from Delivery D
 where not exists (select 1 from OrdersDetail OD
                   where OD.OrdersID = D.OrdersID
                     and not exists (select 1 from DeliveryDetail DD

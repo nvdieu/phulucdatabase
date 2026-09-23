@@ -6,42 +6,42 @@
 | [OK] A2 giao dung ngay dat (bien: bang nhau) |
 | test                                       |
 | [PHAI LOI] A3 them dot giao truoc ngay dat |
-insert into Delivery values ('G04','2026-08-14','D02')
+insert into Delivery values ('D04','2026-08-14','R02')
 
 ERROR 1644 (45000) at line 53: Ngày giao phải bằng hoặc sau ngày đặt hàng
 | test                                                      |
-| [PHAI LOI] A4 sua ngay giao G01 ve truoc ngay dat cua D01 |
-update Delivery set DeliveryDate = '2026-07-01' where DeliveryID = 'G01'
+| [PHAI LOI] A4 sua ngay giao D01 ve truoc ngay dat cua R01 |
+update Delivery set DeliveryDate = '2026-07-01' where DeliveryID = 'D01'
 
 ERROR 1644 (45000) at line 55: Ngày giao phải bằng hoặc sau ngày đặt hàng
 | test                                                                    |
-| [PHAI LOI] A5 chuyen G01 sang don D02 (dat 2026-08-15, giao 2026-08-08) |
-update Delivery set OrdersID = 'D02' where DeliveryID = 'G01'
+| [PHAI LOI] A5 chuyen D01 sang don R02 (dat 2026-08-15, giao 2026-08-08) |
+update Delivery set OrdersID = 'R02' where DeliveryID = 'D01'
 
 ERROR 1644 (45000) at line 57: Ngày giao phải bằng hoặc sau ngày đặt hàng
 | test                                                                       |
-| [PHAI LOI] A6 doi ngay dat D01 thanh 2026-08-20 (sau ngay giao 2026-08-08) |
-update Orders set OrdersDate = '2026-08-20' where OrdersID = 'D01'
+| [PHAI LOI] A6 doi ngay dat R01 thanh 2026-08-20 (sau ngay giao 2026-08-08) |
+update Orders set OrdersDate = '2026-08-20' where OrdersID = 'R01'
 
 ERROR 1644 (45000) at line 59: Ngày đặt hàng mới trễ hơn đợt giao đã có
 | test                                                            |
-| [OK] A7 doi ngay dat D01 thanh 2026-08-05 (van truoc ngay giao) |
+| [OK] A7 doi ngay dat R01 thanh 2026-08-05 (van truoc ngay giao) |
 | test                                                |
 | [OK] A8 don chua co dot giao thi doi ngay dat tu do |
 | test                             |
 | A9 ket qua sau cac thao tac tren |
 | DeliveryID | DeliveryDate | OrdersID |
-| G01        | 2026-08-08   | D01      |
-| G02        | 2026-08-16   | D02      |
+| D01        | 2026-08-08   | R01      |
+| D02        | 2026-08-16   | R02      |
 | OrdersID | OrdersDate |
-| D01      | 2026-08-05 |
-| D02      | 2026-08-15 |
-| D03      | 2026-09-03 |
+| R01      | 2026-08-05 |
+| R02      | 2026-08-15 |
+| R03      | 2026-09-03 |
 | test                                                                                 |
 | A10 ROLLBACK: mot giao dich co thao tac hop le roi thao tac vi pham, sau do rollback |
 | so_dot_giao_truoc |
 |                 2 |
-insert into Delivery values ('G06','2026-08-01','D02')
+insert into Delivery values ('D06','2026-08-01','R02')
 
 ERROR 1644 (45000) at line 73: Ngày giao phải bằng hoặc sau ngày đặt hàng
 | so_dot_giao_trong_giao_dich |
@@ -104,7 +104,6 @@ ERROR 1644 (45000) at line 143: Suc chua moi nho hon tong ton hien co
   B: ERROR 1644 (45000) at line 1: Vuot suc chua
   => tong_ton_kho W03 = 30
 
-
 ### KET QUA KIEM THU CHUONG 4 - PostgreSQL 16.13
 psql:chuong4_postgres.sql:7: NOTICE:  drop cascades to 5 other objects
 DETAIL:  drop cascades to table t_c4a.customer
@@ -116,20 +115,20 @@ drop cascades to function t_c4a.kt_ngaydat()
 [OK] A2 giao dung ngay dat (bien: bang nhau)
 [PHAI LOI] A3 them dot giao truoc ngay dat
 psql:chuong4_postgres.sql:50: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
-[PHAI LOI] A4 sua ngay giao G01 ve truoc ngay dat cua D01
+[PHAI LOI] A4 sua ngay giao D01 ve truoc ngay dat cua R01
 psql:chuong4_postgres.sql:52: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
-[PHAI LOI] A5 chuyen G01 sang don D02 (dat 2026-08-15, giao 2026-08-08)
+[PHAI LOI] A5 chuyen D01 sang don R02 (dat 2026-08-15, giao 2026-08-08)
 psql:chuong4_postgres.sql:54: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
-[PHAI LOI] A6 doi ngay dat D01 thanh 2026-08-20 (sau ngay giao 2026-08-08)
+[PHAI LOI] A6 doi ngay dat R01 thanh 2026-08-20 (sau ngay giao 2026-08-08)
 psql:chuong4_postgres.sql:56: ERROR:  Ngày đặt hàng mới trễ hơn đợt giao đã có
-[OK] A7 doi ngay dat D01 thanh 2026-08-05 (van truoc ngay giao)
+[OK] A7 doi ngay dat R01 thanh 2026-08-05 (van truoc ngay giao)
 [OK] A8 don chua co dot giao thi doi ngay dat tu do
 A9 ket qua sau cac thao tac tren
-G01|2026-08-08|D01
-G02|2026-08-16|D02
-D01|2026-08-05
-D02|2026-08-15
-D03|2026-09-03
+D01|2026-08-08|R01
+D02|2026-08-16|R02
+R01|2026-08-05
+R02|2026-08-15
+R03|2026-09-03
 A10 ROLLBACK: trong PostgreSQL, loi lam giao dich chuyen sang trang thai loi, buoc phai rollback toan bo
 2
 psql:chuong4_postgres.sql:70: ERROR:  Ngày giao phải bằng hoặc sau ngày đặt hàng
